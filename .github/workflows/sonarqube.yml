@@ -5,8 +5,7 @@ on:
     branches:
       - main
   pull_request:
-    branches:
-      - main
+    types: [opened, synchronize, reopened]
 
 jobs:
   sonarqube:
@@ -14,13 +13,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
       - name: SonarQube Scan
-        uses: SonarSource/sonarqube-scan-action@v6
+        uses: SonarSource/sonarqube-scan-action@v7
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: https://sonarcloud.io
